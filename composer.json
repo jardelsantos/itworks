@@ -8,7 +8,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Jardelsantos\\Itworks\\": "src/"
+            "Itworks\\": "app/"
         }
     },
     "authors": [
