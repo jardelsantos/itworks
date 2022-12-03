@@ -1,0 +1,21 @@
+{
+    "name": "jardelsantos/itworks",
+    "description": "Mini Framework PHP",
+    "type": "project",
+    "require": {
+        "twig/twig": "3.x-dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jardelsantos\\Itworks\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jardel Santos",
+            "email": "jardelsilvasantos@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
