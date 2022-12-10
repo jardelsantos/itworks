@@ -1,4 +1,7 @@
 <?php
+#http://localhost:8081/
+#http://localhost:8081/home
+#http://localhost:8081/home?nome=pedro&sobrenome=santos
 
-//Exemplo: 
-//$this->get('/','HomeController@home');
+$this->get('/','ContaController@extrato');
+$this->get('/home','HomeController@home');
