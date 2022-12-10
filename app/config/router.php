@@ -3,5 +3,4 @@
 #http://localhost:8081/home
 #http://localhost:8081/home?nome=pedro&sobrenome=santos
 
-$this->get('/','ContaController@extrato');
-$this->get('/home','HomeController@home');
+$this->get('/','ContaController@index');

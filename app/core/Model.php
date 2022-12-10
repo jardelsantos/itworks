@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace Itworks\core;
 
 use PDO;
 
@@ -25,7 +25,8 @@ class Model {
     * @return PDOConnection|null
     */
     public function getConnection() {
-        try {
+        try 
+        {
             if (self::$connection == null) {
                 self::$connection = new PDO("mysql:host={$this->server};dbname={$this->database};charset=utf8", $this->user, $this->password);
                 self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -33,12 +34,12 @@ class Model {
                 self::$connection->setAttribute(PDO::ATTR_PERSISTENT, true);
             }
             return self::$connection;
-        } catch (PDOException $ex) {
+        } 
+        catch (\PDOException $ex) {
             if ($this->debug) {
                 echo "<b>Error on getConnection(): </b>" . $ex->getMessage() . "<br/>";
             }
             die();
-            return null;
         }
     }
     /**
@@ -150,7 +151,6 @@ class Model {
                 ;
             }
             die();
-            return false;
         }
     }
 
