@@ -1,9 +1,8 @@
 <?php
-#http://localhost:8081/
-#http://localhost:8081/home
-#http://localhost:8081/home?nome=pedro&sobrenome=santos
 
-$this->get('/','ContaController@index');
-$this->get('/novo','ContaController@novo');
-$this->post('/conta-salvar','ContaController@salvar');
-$this->get('/conta-editar','ContaController@editar');
+$this->get('/','SiteController@index');
+$this->get('/formulario','CurriculoController@criarCurriculo');
+$this->post('/formulario-salvar', 'CurriculoController@salvarCurriculo');
+$this->get('/envio-arquivo','CurriculoController@upload');
+$this->post('/arquivo-salvar','CurriculoController@salvarUpload');
+$this->get('/cadastro-concluido','CurriculoController@sucesso');

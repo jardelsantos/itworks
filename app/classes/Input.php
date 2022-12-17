@@ -12,7 +12,7 @@ class Input
      * @return mixed
      */
     public static function post(
-        string $param, int $filter = FILTER_SANITIZE_STRING
+        string $param, int $filter = FILTER_UNSAFE_RAW
     ) {
         return filter_input(INPUT_POST, $param, $filter);
     }
@@ -25,7 +25,7 @@ class Input
      * @return mixed
      */
     public static function get(
-        string $param, int $filter = FILTER_SANITIZE_STRING
+        string $param, int $filter = FILTER_UNSAFE_RAW
     ) {
         return filter_input(INPUT_GET, $param, $filter);
     }
