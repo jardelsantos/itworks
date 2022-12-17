@@ -2,9 +2,11 @@
 
 namespace Itworks\src\controller;
 
+use Itworks\core\Controller;
 use Itworks\src\model\ContaModel;
+use Itworks\classes\Input;
 
-class ContaController{
+class ContaController extends Controller{
 
     private $contaModel;
 
@@ -22,8 +24,50 @@ class ContaController{
 
         $listaExtrato = $this->contaModel->getAll();
 
-        require('../app/src/view/conta/main.php');
+        $this->load('conta/main', ['listaExtrato' => $listaExtrato] );
     }
+
+    public function novo()
+    {
+        $this->load('conta/novo');
+    }
+
+
+    public function salvar(){
+        $registro = $this->getInputPost();
+        
+        $result = $this->contaModel->insert($registro);  
+        
+        if ($result <= 0) {
+            echo 'Erro';
+        }
+        else {
+            redirect(BASE . 'conta-editar?id=' . $result);
+        }
+       
+    }
+
+    /**
+     * Retorna os dados do formulário em uma classe padrão stdObject
+     *
+     * @return object
+     */
+    private function getInputPost()
+    {
+
+        return (object)[
+            'valor'        => Input::post(  
+                                            'txtValor', 
+                                            FILTER_SANITIZE_NUMBER_FLOAT,
+                                            FILTER_FLAG_ALLOW_FRACTION
+                                        ),
+            'movimentacao' => Input::post(
+                                            'selMovimentacao',
+                                            FILTER_UNSAFE_RAW
+                                        )
+        ];
+    }
+
     public function extrato(){
         echo "Extrato da Conta";
 
@@ -42,4 +86,25 @@ class ContaController{
         }
         
     }
+/**
+     * Carrega a página com o formulário para editar um registro
+     *
+     * @return void
+     */
+    public function editar()
+    {
+        $id = Input::get('id');
+
+        $conta = $this->contaModel->getById( (int)$id );
+
+        $this->load(
+                'conta/editar', 
+                [ 
+                    'conta' => $conta 
+                ] 
+        );
+    }
+
+
+
 }

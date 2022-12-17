@@ -34,7 +34,7 @@ class ContaModel
         $sqlParams = [
             ':valor'        => $params->valor, 
             ':movimentacao' => $params->movimentacao, 
-            ':dataRegistro' => $params->dataRegistro
+            ':dataRegistro' => date('Y-m-d H:i:s')
         ];
 
         $handle = $this->pdo->executeNonQuery($sql, $sqlParams);
@@ -97,5 +97,26 @@ class ContaModel
         ];
     }
 
+
+
+    /**
+     * Retorna um único registro da base de dados através do ID informado
+     *
+     * @param  int $id ID do objeto a ser retornado
+     * @return object Retorna um objeto populado com os dados do 
+     * registro ou se não encontrar com seus valores nulos
+     */
+    public function getById(int $id)
+    {
+        $sql = 'SELECT * FROM extrato WHERE id = :id';
+
+        $param = [
+            ':id' => $id
+        ];
+
+        $dr = $this->pdo->executeQueryOneRow($sql, $param);
+
+        return $this->collection($dr);
+    }
 
 }

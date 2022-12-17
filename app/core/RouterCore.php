@@ -40,7 +40,6 @@ class RouterCore
         for ($i = 0; $i < UNSET_URI_COUNT; $i++) {
             unset($uri[$i]);
         }
-
         //IMPLODE TRANSFORMA O ARRAY EM STRING
         //[0] => HOME [1]=>CASA_E_DECORACAO
         //HOME/CASA_E_DECORACAO
@@ -114,22 +113,37 @@ class RouterCore
     private function executeController($get)
     {
         $ex = explode('@', $get);
-        // if (!isset($ex[0]) || !isset($ex[1])) {
-        //     (new \app\src\controller\MessageController)->message('Dados inválidos', 'Controller ou método não encontrado: ' . $get, 404);
-        //     return;
-        // }
+        if (!isset($ex[0]) || !isset($ex[1])) {
+            (new \Itworks\core\Controller)->showMessage(
+                'Dados inválidos', 
+                'Controller ou método não encontrado: ' . $get, 
+                null, 
+                404
+            );
+            return;
+        }
 
         $cont = 'Itworks\\src\\controller\\' . $ex[0];
-        // if (!class_exists($cont)) {
-        //     (new \app\src\controller\MessageController)->message('Dados inválidos', 'Controller não encontrada: ' . $get, 404);
-        //     return;
-        // }
+        if (!class_exists($cont)) {
+            (new \Itworks\core\Controller)->showMessage(
+                'Dados inválidos', 
+                'Controller não encontrada: ' . $get, 
+                null,
+                404
+            );
+            return;
+        }
 
 
-        // if (!method_exists($cont, $ex[1])) {
-        //     (new \app\src\controller\MessageController)->message('Dados inválidos', 'Método não encontrado: ' . $get, 404);
-        //     return;
-        // }
+        if (!method_exists($cont, $ex[1])) {
+            (new \Itworks\core\Controller)->showMessage(
+                'Dados inválidos', 
+                'Método não encontrado: ' . $get, 
+                null,
+                404
+            );
+            return;
+        }
 
         call_user_func_array([
             new $cont,
